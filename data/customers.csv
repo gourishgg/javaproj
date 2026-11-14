@@ -1,0 +1,8 @@
+# Vertex Banking - Customer Bulk Ingestion CSV
+# Format: customer_id,name,email,phone,dob
+customer_id,name,email,phone,dob
+C201,Vikram Rathore,vikram@vertex.com,9876500001,1995-04-12
+C202,Priya Nair,priya.nair@vertex.com,9876500002,1998-11-25
+C203,Deepak Mehta,deepak.mehta@vertex.com,9876500003,2001-02-14
+C204,Future Boy,future@vertex.com,9876500004,2040-01-01
+C205,Invalid Email,invalid-email-format,9876500005,1990-06-15
