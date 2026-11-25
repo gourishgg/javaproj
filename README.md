@@ -250,4 +250,4 @@ java -cp bin test.VertexTestRunner
 - [x] Generic `Repository<T>` and CSV importer/exporter with line-by-line rejection auditing.
 - [x] Automated test runner executing tests T01 through T18 with 100% Pass rate.
 - [x] Windows launch and compile scripts (`compile.bat`, `run.bat`, `run-tests.bat`).
-- [x] Complete Viva guide and team contribution record.
+
