@@ -111,12 +111,12 @@ D:\gg\vertex_banking\
 
 | Milestone | Marks | Requirements | Implemented Artifacts & Evidence |
 |:---|:---:|:---|:---|
-| **1. OOP Model, Strings & Exceptions** | **8** | Encapsulated models, `Withdrawable` interface, `BigDecimal` money, custom exceptions, validation. | `Customer.java`, `Account.java`, `Withdrawable.java`, `VertexException` hierarchy, `BigDecimal` scale handling. |
+| **1. OOP Model, String & Exceptions** | **8** | Encapsulated models, `Withdrawable` interface, `BigDecimal` money, custom exceptions, validation. | `Customer.java`, `Account.java`, `Withdrawable.java`, `VertexException` hierarchy, `BigDecimal` scale handling. |
 | **2. Collections & Record Management** | **6** | `HashMap` for $O(1)$ lookups, `HashSet` for unique email tracking, `ArrayList`, sorting with `Comparator`. | `CustomerService.registeredEmails` (`HashSet`), `InMemoryRepository` (`Map`), `AccountService.getTopAccounts` (`Comparator`). |
 | **3. Multithreading & Synchronization** | **7** | `BalanceManager` with `synchronized` critical section; 5 threads competing for ₹2,000 balance $\to$ exactly 2 succeed. | `BalanceManager.java`, `TransactionTask.java`, Test `T10` outputting thread names and never driving balance negative. |
-| **4. Producer-Consumer & Executors** | **6** | Bounded queue with `wait()`/`notifyAll()` in `while` loop; `ExecutorService`, `Callable<BigDecimal>`, `Future.get()`. | `TransactionQueue.java`, `TransactionProducer.java`, `TransactionConsumer.java`, `SettlementCalculatorTask.java`. |
+| **4. Producer-Consumer & Executor** | **6** | Bounded queue with `wait()`/`notifyAll()` in `while` loop; `ExecutorService`, `Callable<BigDecimal>`, `Future.get()`. | `TransactionQueue.java`, `TransactionProducer.java`, `TransactionConsumer.java`, `SettlementCalculatorTask.java`. |
 | **5. JDBC & Relational Database** | **8** | `DBConnection`, DAOs, `PreparedStatement`, `ResultSet`, atomic transactions with `commit` and `rollback`. | `CustomerDAO.java`, `AccountDAO.java`, `TransactionDAO.java`, `TransferService` with verified simulated failure rollback (`T14`). |
-| **6. Lambda & Stream API Reports** | **6** | `filter`, `map`, `sorted`, `distinct`, `groupingBy`, `counting`, `averagingDouble`, `summarizingDouble`. | `ReportService.java` providing multi-level asset breakdown, status groupings, and top high-value accounts. |
+| **6. Lambda & Stream API Report** | **6** | `filter`, `map`, `sorted`, `distinct`, `groupingBy`, `counting`, `averagingDouble`, `summarizingDouble`. | `ReportService.java` providing multi-level asset breakdown, status groupings, and top high-value accounts. |
 | **7. Generics & File Handling** | **4** | Generic `Repository<T>`, CSV import with `BufferedReader` tracking malformed rows, CSV export with `BufferedWriter`. | `Repository.java`, `CsvImporter.java` (line number error logger), `CsvExporter.java`, `data/customers.csv`. |
 | **8. Integration, Testing & Viva** | **5** | Interactive CLI menu (options 1–13), reproducible demo script, automated test runner (18/18 Pass). | `VertexBankingApp.java`, `VertexTestRunner.java` (100% Pass rate), `sql/vertex_banking_schema.sql`. |
 
@@ -159,7 +159,7 @@ D:\gg\vertex_banking\
 ## 5. Official Demonstration Dataset & Verification Results
 
 ### Standard Demonstration Sequence
-1. **Register Customers:** `C101` (Asha Sharma, 2000-05-10) and `C102` (Rohan Verma, 1999-08-22).
+1. **Register Customers:** `C101` (Ashu Sharma, 2000-05-10) and `C102` (Rohit Verma, 1999-08-22).
 2. **Open Accounts:**
    - `A501` for `C101`: SAVINGS account with ₹50,000.00.
    - `A502` for `C102`: CURRENT account with ₹5,000.00.
