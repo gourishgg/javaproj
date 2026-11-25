@@ -5,17 +5,9 @@
 
 ---
 
-## 1. Project Team Members & Contribution Matrix
 
-| S.No | Roll Number | Student Name | Email ID | Module / Classes Owned | Viva Focus Areas |
-|:---:|:---:|:---:|:---:|:---|:---|
-| 1 | **2510990093** | **Harjot Singh** | `harjot0093.becse25@chitkara.edu.in` | **Milestone 3 & 4:** Concurrency, Synchronization, Thread Safety (`BalanceManager`, `TransactionTask`, `TransactionQueue`, `Producer-Consumer`, `ExecutorService`, `Callable`, `Future`) | Multithreading lifecycle, Race conditions, Intrinsic locks, `wait()`/`notifyAll()` monitor rules |
-| 2 | **2510990001** | **Gourish Kapoor** | `gourish0001.becse25@chitkara.edu.in` | **Milestone 1, 2 & 8:** Domain OOP Architecture, Validation, Exception Hierarchy, Collections, CLI Menus & Integration (`Customer`, `Account`, `Withdrawable`, `VertexBankingApp`, Custom Exceptions, `VertexTestRunner`) | OOP Encapsulation, `BigDecimal` financial precision, Collections choice (`HashMap`, `HashSet`), System integration |
-| 3 | **2510990082** | **Kartavya Handa** | `kartavya0082.becse25@chitkara.edu.in` | **Milestone 5, 6 & 7:** Persistence, Stream API & File I/O (`CustomerDAO`, `AccountDAO`, `TransactionDAO`, `TransferService`, `ReportService`, `Repository<T>`, `CsvImporter`, `CsvExporter`, SQL Schema) | JDBC `PreparedStatement`, ACID Transactions & Rollback, Stream pipelines (`groupingBy`, `counting`), Generics & CSV parsing |
 
----
-
-## 2. Problem Statement & Proposed Solution
+## 1. Problem Statement & Proposed Solution
 
 ### Problem
 Traditional banking academic setups and legacy financial prototypes often manage customers, accounts, and transactions across unvalidated spreadsheets and flat files. This leads to data redundancy, race conditions during simultaneous withdrawals, inaccurate balances due to floating-point rounding errors, lack of transaction atomicity, and poor reporting capabilities.
@@ -32,7 +24,7 @@ Traditional banking academic setups and legacy financial prototypes often manage
 
 ---
 
-## 3. Architecture & Package Structure
+## 2. Architecture & Package Structure
 
 ```
 Console UI (VertexBankingApp)
@@ -115,7 +107,7 @@ D:\gg\vertex_banking\
 
 ---
 
-## 4. Eight Development Milestones (50 Marks Mapping)
+## 3. Eight Development Milestones (50 Marks Mapping)
 
 | Milestone | Marks | Requirements | Implemented Artifacts & Evidence |
 |:---|:---:|:---|:---|
@@ -130,7 +122,7 @@ D:\gg\vertex_banking\
 
 ---
 
-## 5. Database Schema & Relational Design
+## 4. Database Schema & Relational Design
 
 ```
 +--------------------+          +-----------------------------------+
@@ -164,7 +156,7 @@ D:\gg\vertex_banking\
 
 ---
 
-## 6. Official Demonstration Dataset & Verification Results
+## 5. Official Demonstration Dataset & Verification Results
 
 ### Standard Demonstration Sequence
 1. **Register Customers:** `C101` (Asha Sharma, 2000-05-10) and `C102` (Rohan Verma, 1999-08-22).
@@ -205,7 +197,7 @@ All 18 standardized student tests pass automatically in `test.VertexTestRunner`:
 
 ---
 
-## 7. How to Compile and Run
+## 6. How to Compile and Run
 
 ### Prerequisites
 - Java JDK 17, 21, or 26 installed and present in `PATH`.
@@ -245,28 +237,9 @@ java -cp bin test.VertexTestRunner
 
 ---
 
-## 8. Viva Preparation & Conceptual Defense
 
-### Q1: Why is `BigDecimal` used for currency instead of `double` or `float`?
-**Answer:** `float` and `double` are IEEE 754 binary floating-point representations that cannot represent fractions like $0.1$ or $0.05$ exactly, leading to cumulative binary rounding errors (e.g. `0.1 + 0.2 = 0.30000000000000004`). In banking, this creates catastrophic financial drift. `BigDecimal` represents arbitrary-precision decimal numbers with explicit rounding modes (`RoundingMode.HALF_UP`), guaranteeing mathematical accuracy.
 
-### Q2: How does `BalanceManager` prevent race conditions during concurrent withdrawals?
-**Answer:** Without synchronization, if two threads read a balance of ₹1,000 simultaneously, both evaluate `balance >= 1000` as true, debit ₹1,000, and drive the balance to $-₹1,000$. `BalanceManager` marks the check-and-debit logic as a critical section guarded by `synchronized (account)`. Only the thread holding the account's intrinsic monitor lock can enter, forcing sequential atomic execution.
-
-### Q3: Why must `wait()` be called inside a `while` loop rather than an `if` statement?
-**Answer:** To defend against **spurious wakeups** (threads waking without an explicit notification) and **race conditions** where another thread claims the shared resource between when `notifyAll()` was issued and when the awakened thread actually re-acquires the monitor lock. A `while` loop guarantees the condition is re-evaluated before proceeding.
-
-### Q4: What is the purpose of `PreparedStatement` over `Statement`?
-**Answer:**
-1. **SQL Injection Prevention:** `PreparedStatement` pre-compiles the SQL query template and binds user parameters as typed data rather than executable SQL fragments (as proven by names like `O'Brien` in Test T13).
-2. **Performance:** Precompiled SQL execution plans are cached and reused by database engines for repeated calls.
-
-### Q5: How is atomicity guaranteed during fund transfers?
-**Answer:** The `TransferService` disables auto-commit (`conn.setAutoCommit(false)`). It executes both the debit on the source account and credit on the target account within the same transaction scope. If any step throws an exception, `conn.rollback()` is invoked, undoing all intermediate database operations and resetting in-memory balance states (verified by Test T14).
-
----
-
-## 9. Final Submission Checklist
+## 7. Final Submission Checklist
 
 - [x] Full source code structured cleanly across packages (`model`, `exception`, `repository`, `database`, `dao`, `service`, `concurrency`, `util`, `test`, `main`).
 - [x] Complete MySQL schema with primary keys, foreign keys, and constraints (`sql/vertex_banking_schema.sql`).
