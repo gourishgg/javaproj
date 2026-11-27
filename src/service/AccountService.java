@@ -86,14 +86,14 @@ public class AccountService {
         try (Connection conn = DBConnection.getConnection()) {
             conn.setAutoCommit(false);
             try {
-                accountDAO.save(account);
+                accountDAO.save(account, conn);
                 transactionDAO.save(initTxn, conn);
                 conn.commit();
 
                 accountRepo.save(account);
                 transactionRepo.save(initTxn);
                 return account;
-            } catch (SQLException | VertexException ex) {
+            } catch (SQLException ex) {
                 conn.rollback();
                 throw new VertexException("Transaction rolled back. Failed to open account: " + ex.getMessage(), ex);
             } finally {
@@ -110,7 +110,7 @@ public class AccountService {
                 .orElseThrow(() -> new InvalidAccountException("Account '" + accountNumber + "' not found."));
 
         account.deposit(amount);
-        String txnId = "TXN-" + txnSequence.incrementAndGet();
+        String txnId = "TXN-" + System.currentTimeMillis() + "-" + txnSequence.incrementAndGet();
         Transaction txn = new Transaction(txnId, account.getAccountNumber(), TransactionType.DEPOSIT, amount,
                 TransactionStatus.SUCCESS, remarks != null ? remarks : "Account Deposit");
 
@@ -142,7 +142,7 @@ public class AccountService {
 
         // Executes withdrawal checks: status, daily limit, and balance
         account.withdraw(amount);
-        String txnId = "TXN-" + txnSequence.incrementAndGet();
+        String txnId = "TXN-" + System.currentTimeMillis() + "-" + txnSequence.incrementAndGet();
         Transaction txn = new Transaction(txnId, account.getAccountNumber(), TransactionType.WITHDRAWAL, amount,
                 TransactionStatus.SUCCESS, remarks != null ? remarks : "Account Withdrawal");
 

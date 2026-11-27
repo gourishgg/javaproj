@@ -52,9 +52,16 @@ public class VertexTestRunner {
     }
 
     public static void runAllTests() {
+        totalTests = 0;
+        passedTests = 0;
+        testResults.clear();
+
+        cleanupTestRecords();
+
         System.out.println("================================================================================");
         System.out.println("               VERTEX BANKING - AUTOMATED VERIFICATION SUITE                    ");
         System.out.println("                  Testing Requirements T01 through T18                         ");
+        System.out.println("   Database: " + database.DBConnection.getConnectionStatus());
         System.out.println("================================================================================");
 
         CustomerDAO customerDAO = new CustomerDAO();
@@ -330,6 +337,24 @@ public class VertexTestRunner {
         System.out.printf("   TEST EXECUTION COMPLETED: %d / %d TESTS PASSED (%.1f%%)%n",
                 passedTests, totalTests, (passedTests * 100.0 / totalTests));
         System.out.println("================================================================================");
+
+        cleanupTestRecords();
+    }
+
+    private static void cleanupTestRecords() {
+        try (java.sql.Connection conn = database.DBConnection.getConnection()) {
+            if (database.DBConnection.isUsingSimulated()) {
+                return;
+            }
+            try (java.sql.Statement st = conn.createStatement()) {
+                st.executeUpdate("DELETE FROM transactions WHERE account_number LIKE 'T\\_%'");
+                st.executeUpdate("DELETE FROM accounts WHERE account_number LIKE 'T\\_%'");
+                st.executeUpdate("DELETE FROM customers WHERE customer_id LIKE 'T\\_%'");
+                st.executeUpdate("DELETE FROM customers WHERE customer_id IN ('C201', 'C202', 'C203') " +
+                        "AND customer_id NOT IN (SELECT DISTINCT customer_id FROM accounts)");
+            }
+        } catch (Exception ignored) {
+        }
     }
 
     public static void main(String[] args) {

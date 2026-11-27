@@ -22,10 +22,15 @@ import java.util.Optional;
 public class AccountDAO {
 
     public void save(Account account) throws SQLException {
+        try (Connection conn = DBConnection.getConnection()) {
+            save(account, conn);
+        }
+    }
+
+    public void save(Account account, Connection conn) throws SQLException {
         String sql = "INSERT INTO accounts (account_number, customer_id, account_type, balance, status, daily_limit, daily_withdrawn_today, last_withdrawal_date) " +
                      "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, account.getAccountNumber());
             stmt.setString(2, account.getCustomerId());
             stmt.setString(3, account.getAccountType().name());

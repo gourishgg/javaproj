@@ -112,6 +112,7 @@ public class VertexBankingApp {
         System.out.println("                                                                 __/ |");
         System.out.println("                                                                |___/ ");
         System.out.println("        Vertex Bank - Smart Banking, Simplified | Group G2 (Team 17)   ");
+        System.out.println("        Database: " + database.DBConnection.getConnectionStatus());
         System.out.println("================================================================================");
     }
 

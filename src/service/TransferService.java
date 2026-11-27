@@ -83,8 +83,9 @@ public class TransferService {
         toAccount.deposit(amount);
 
         long refId = transferSequence.incrementAndGet();
-        String debitTxnId = "TXN-TRF-OUT-" + refId;
-        String creditTxnId = "TXN-TRF-IN-" + refId;
+        long ts = System.currentTimeMillis();
+        String debitTxnId = "TXN-OUT-" + ts + "-" + refId;
+        String creditTxnId = "TXN-IN-" + ts + "-" + refId;
 
         Transaction debitTxn = new Transaction(debitTxnId, fromAccount.getAccountNumber(),
                 TransactionType.TRANSFER_OUT, amount, TransactionStatus.SUCCESS,
